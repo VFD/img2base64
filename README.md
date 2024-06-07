@@ -61,8 +61,13 @@ img {
 Pose des problème à cause de l'interprétation des caractères.\
 Même avec les balises "pre".
 
+Il faut donc trouver un autre moyen.
+C'est la proposition que je fais avec le projet Twine-ASCII.
+
+
 #### SVG
 
-Idem ne fonctionne pas.
+Ne fonctionne pas.
+Essais en cours.
 
 ___
