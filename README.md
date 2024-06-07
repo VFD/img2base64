@@ -41,14 +41,6 @@ Mettre le code :
 
 Pour des raisons pratiques, ajouter y la balise "image".
 
-#### Remarques
-
-Vous pouvez procéder de même avec :
-* des images SVG (à tester)
-* des images ASCII Art (à tester)
-
-L'ASCII Art c'est du texte, donc prend peut de place.\
-Mais le passage conteneur nécessite un peu de travail.
 
 #### Modifier le CSS de l'histoire (IMG et SVG)
 
@@ -62,17 +54,15 @@ img {
     margin: auto;
 }
 
-/* centre un SVG basiquement */
-svg {
-    display: block;
-    margin: auto;
-}
 ```
 
 #### ASCII Art
 
+Pose des problème à cause de l'interprétation des caractères.\
+Même avec les balises "pre".
 
+#### SVG
 
-NB: pas encore testé.
+Idem ne fonctionne pas.
 
 ___
