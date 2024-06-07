@@ -44,8 +44,8 @@ Pour des raisons pratiques, ajouter y la balise "image".
 #### Remarques
 
 Vous pouvez procéder de même avec :
-* des images SVG
-* des images ASCII Art
+* des images SVG (à tester)
+* des images ASCII Art (à tester)
 
 L'ASCII Art c'est du texte, donc prend peut de place.\
 Mais le passage conteneur nécessite un peu de travail.
@@ -71,34 +71,7 @@ svg {
 
 #### ASCII Art
 
-Dans le passage, il faut du HTML.
 
-```html
-<div class="ASCII">
-    <pre>
-
-Le code ASCII Art ici
-
-    </pre>
-</div>
-```
-Il faut ajouter le code CSS suivant dans le CSS général de l'histoire.
-
-```css
-/* centre l'ASCII */
-.ASCII {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-}
-/* tag pour l'ASCII */
-pre {
-    font-family: 'Courier New', monospace;
-    white-space: pre;
-}
-```
 
 NB: pas encore testé.
 
