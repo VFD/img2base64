@@ -1,71 +1,152 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title>Image to Data Base 64</title>
-	</head>
-	<body>
-		<h1>Transformation Image en Data base64</h1>
-	
-		<hr>
-		<h2>Explication</h2>
-		<p>Parfois il peut-être judicieux d'intégrer direcement une image dans le code HTML d'une page.
-		Ce procédé est validé par le W3C.<br>
-		Attention, on évite les grosses images, cette technique est plutôt faites pour de petites choses.
-		Typiquement l'intégration direct d'un logo.</p>
-	
-		<hr>
-		<h2>Chargement</h2>
-		<p>Cliquer sur le bouton ci-dessous pour charger un fichier image.
-		Une fois chargé, la conversion se fait automatiquement.
-		L'image est convertie en DATA base64.</p>
-		<input id="myinput" type="file" onchange="encode();" />
-    
-		<hr>
-		<h2>Résultat de la conversion</h2>
-		<p>Faire un copier / Coller du code ci-dessous.<br>
-		C'est comme une image.</p>
-		<br>
-		<p>L'image source s'affiche ci-dessous.</p>
-		<div id="dummy"></div>
-		
-		<p>Le code base64 de l'image ci-dessous.</p>
-		<div><textarea style="width:66%;height:200px;" id="txt"></textarea></div>
+    <!-- ---------------------------------------------------------------------- -->
+    <!-- HEAD -->
+    <!-- ---------------------------------------------------------------------- -->
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Image to Data Base 64</title>
+        <!-- ---------------------------------------------------------------------- -->
+        <!-- CSS -->
+        <!-- ---------------------------------------------------------------------- -->
+        <style>
+            body, textarea {
+                transition: background-color 0.5s ease, color 0.5s ease;
+                color: black;
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+            textarea {
+                border: 2px solid black;
+                border-radius: 10px;
+            }
+            textarea:focus {
+                outline-color: olive;
+            }
+            footer p {
+                font-size: 75%;
+            }
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+            .hr-width {
+                width: 33%;
+            }
+            .dark-mode {
+                background-color: #333;
+                color: rgba(255, 255, 255, 0.8);
+            }
+            .dark-mode textarea {
+                background-color: #333;
+                color: rgba(255, 255, 255, 0.8);
+            }
+        </style>
+    </head>
+    <!-- ---------------------------------------------------------------------- -->
+    <!-- BODY -->
+    <!-- ---------------------------------------------------------------------- -->
+    <body>
+        <!-- ---------------------------------------------------------------------- -->
+        <!-- HEADER -->
+        <!-- ---------------------------------------------------------------------- -->
+        <header class="center">
+            <h1>Transformation d'une image en Data codée base64</h1>
+            <hr/><br/>
+            <button onclick="toggleMode()">Mode Clear/Dark</button>
+            <br/>
+            <hr class="hr-width" />
+        </header>
+        <!-- ---------------------------------------------------------------------- -->
+        <section>
+            <h2>Explication</h2>
+            <p>Parfois il peut-être judicieux d'intégrer direcement une image dans le code HTML d'une page.
+            Ce procédé est validé par le W3C.<br>
+            Attention, on évite les grosses images, cette technique est plutôt faites pour de petites choses.
+            Typiquement l'intégration direct d'un logo.</p>
+            <hr class="hr-width" />
+        </section>
+        <!-- ---------------------------------------------------------------------- -->
+        <section>
+            <h2>Chargement</h2>
+            <p>Cliquer sur le bouton ci-dessous pour charger un fichier image.
+            Une fois chargé, la conversion se fait automatiquement.<br/>
+            L'image est convertie en DATA base64.</p>
+            <input id="myinput" type="file" onchange="encode64();" class="center"/>
+            <hr class="hr-width" />
+        </section>
+        <!-- ---------------------------------------------------------------------- -->
+        <section>
+            <h2>Résultat de la conversion</h2>
+            <p>Faire un Copier / Coller du code qui s'affichera dans la zone de texte.<br/>
+            C'est comme une image.</p>
+            <!-- ---------------------------------------------------------------------- -->
+            <h3>Image source</h3>
+            <div id="image_source" class="center">L'image source s'affiche ici.</div>
+            <!-- ---------------------------------------------------------------------- -->
+            <h3>Le code base64 de l'image ci-dessous.</h3>
+            <div class="center">
+                <textarea id="image_base64" style="width:90%;" rows="30" readonly>
+Le code img base64 s'affichera ici...
+                </textarea>
+            </div>
+            <hr/>
+        </section>
+        <!-- ---------------------------------------------------------------------- -->
+        <!-- FOOTER -->
+        <!-- ---------------------------------------------------------------------- -->
+        <footer>
+            <p class="center">&copy; 2024 - Vincent DUBOIS</p>
+        </footer>
+    </body>
 
-	</body>
-    
-	<script>
-      function encode() {
-        // Get the file objects that was selected by the user from myinput - a file picker control
-        var selectedfile = document.getElementById("myinput").files;
-        // Check that the user actually selected file/s from the "file picker" control
-        // Note - selectedfile is an array, hence we check it`s length, when length of the array
-        // is bigger than 0 than it means the array containes file objects
-        if (selectedfile.length > 0) {
-          // Set the first file object inside the array to this variable
-          // Note: if multiple files are selected we can itterate on all of the selectedfile array  using a for loop - BUT in order to not make this example complicated we only take the first file object that was selected
-          var imageFile = selectedfile[0];
-          // Set a filereader object to asynchronously read the contents of files (or raw data buffers) stored on the            user's computer, using File or Blob objects to specify the file or data to read. 
-          var fileReader = new FileReader();
-          // We declare an event of the fileReader class (onload event) and we register an anonimous function that will be executed when the event is raised. it is "trick" we preapare in order for the onload event to be raised after the last line of this code will be executed (fileReader.readAsDataURL(imageFile);) - please read about events in javascript if you are not familiar with "Events" 
-          fileReader.onload = function(fileLoadedEvent) {
-            // AT THIS STAGE THE EVENT WAS RAISED
-            // Here we are getting the file contents - basiccaly the base64 mapping
-            var srcData = fileLoadedEvent.target.result;
-            // We create an image html element dinamically in order to display the image
-            var newImage = document.createElement('img');
-            // We set the source of the image we created
-            newImage.src = srcData;
-            // ANOTHER TRICK TO EXTRACT THE BASE64 STRING
-            // We set the outer html of the new image to the div element
-            document.getElementById("dummy").innerHTML = newImage.outerHTML;
-            // Then we take the inner html of the div and we have the base64 string
-            document.getElementById("txt").value = document.getElementById("dummy").innerHTML;
-          }
-          // This line will raise the fileReader.onload event - note we are passing the file object here as an argument to the function of the event  
-          fileReader.readAsDataURL(imageFile);
+    <!-- ---------------------------------------------------------------------- -->
+    <!-- JavaScript pour conversion de l'image en base64 -->
+    <!-- ---------------------------------------------------------------------- -->
+    <script>
+        // ----------------------------------------------------------------------
+        // Encodage base64
+        // ----------------------------------------------------------------------
+        function encode64() {
+            // Get the file objects that was selected by the user from myinput - a file picker control
+            var selectedfile = document.getElementById("myinput").files;
+            // Check that the user actually selected file/s from the "file picker" control
+            // Note - selectedfile is an array, hence we check it`s length, when length of the array
+            // is bigger than 0 than it means the array containes file objects
+            if (selectedfile.length > 0) {
+                // Set the first file object inside the array to this variable
+                // Note: if multiple files are selected we can itterate on all of the selectedfile array  using a for loop - BUT in order to not make this example complicated we only take the first file object that was selected
+                var imageFile = selectedfile[0];
+                // Set a filereader object to asynchronously read the contents of files (or raw data buffers) stored on the            user's computer, using File or Blob objects to specify the file or data to read. 
+                var fileReader = new FileReader();
+                // We declare an event of the fileReader class (onload event) and we register an anonimous function that will be executed when the event is raised. it is "trick" we preapare in order for the onload event to be raised after the last line of this code will be executed (fileReader.readAsDataURL(imageFile);) - please read about events in javascript if you are not familiar with "Events" 
+                fileReader.onload = function(fileLoadedEvent) {
+                    // AT THIS STAGE THE EVENT WAS RAISED
+                    // Here we are getting the file contents - basiccaly the base64 mapping
+                    var srcData = fileLoadedEvent.target.result;
+                    // We create an image html element dinamically in order to display the image
+                    var newImage = document.createElement('img');
+                    // We set the source of the image we created
+                    newImage.src = srcData;
+                    // ANOTHER TRICK TO EXTRACT THE BASE64 STRING
+                    // We set the outer html of the new image to the div element
+                    document.getElementById("image_source").innerHTML = newImage.outerHTML;
+                    // Then we take the inner html of the div and we have the base64 string
+                    document.getElementById("image_base64").value = document.getElementById("image_source").innerHTML;
+                }
+                // This line will raise the fileReader.onload event - note we are passing the file object here as an argument to the function of the event  
+                fileReader.readAsDataURL(imageFile);
+            }
         }
-      }
+
+        // ----------------------------------------------------------------------
+        // toggle mode to be improved
+        // ----------------------------------------------------------------------
+        function toggleMode() {
+            document.body.classList.toggle('dark-mode');
+        }
     </script>
 
 </html>
