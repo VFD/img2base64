@@ -38,6 +38,11 @@ Mettre le code :
 ```
 (print:"Mon image)
 ```
+ou
+```
+(display:"Mon image)
+```
+
 
 Pour des raisons pratiques, ajouter y la balise "image".
 
